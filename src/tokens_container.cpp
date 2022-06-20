@@ -27,7 +27,7 @@ void TokensContainer::set_token(token<float> token) {
 /**
  * Sets a token of type string.
  * 
- * @param token token
+ * @param token Token
  */
 void TokensContainer::set_token(token<std::string> token) {
     token_s = token;
@@ -40,6 +40,26 @@ void TokensContainer::set_token(token<std::string> token) {
  */
 void TokensContainer::set_null() {
     val_type = value_type::null_t;
+}
+
+/**
+ * Gets the latest token's type.
+ * 
+ * @return The latest token's type.
+ */
+token_type TokensContainer::get_token_type() {
+    switch (val_type) {
+        case value_type::int_t:
+            return token_i.type;
+        case value_type::float_t:
+            return token_f.type;
+        case value_type::string_t:
+            return token_s.type;
+        case value_type::null_t:
+            return token_type::null;
+        default:
+            return token_type::error;
+    }
 }
 
 /**

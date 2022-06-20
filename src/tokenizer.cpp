@@ -71,8 +71,33 @@ void Tokenizer::next_token() {
         } else if (is_alpha(current_char) || current_char == '_') {
             last_tokens.set_token(token<std::string>{token_type::id, make_id()});
             return;
-        } else {
-            last_tokens.set_null();
+        } else { // single character operators
+            token_type tt;
+            switch (current_char) {
+                case '+':
+                    tt = token_type::plus;
+                    break;
+                case '-':
+                    tt = token_type::minus;
+                    break;
+                case '*':
+                    tt = token_type::multiply;
+                    break;
+                case '/':
+                    tt = token_type::divide;
+                    break;
+                case '(':
+                    tt = token_type::round_l;
+                    break;
+                case ')':
+                    tt = token_type::round_r;
+                    break;
+                default:
+                    tt = token_type::error;
+                    break;
+            }
+            last_tokens.set_token(token<std::string>{tt, std::string{current_char}});
+            advance();
             return;
         }
     }

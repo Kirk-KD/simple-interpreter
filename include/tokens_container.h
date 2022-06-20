@@ -24,6 +24,8 @@ public:
 
     void set_null();
 
+    token_type get_token_type();
+
     std::string to_string();
 };
 

@@ -6,10 +6,13 @@ enum token_type {
     plus,
     minus,
     multiply,
-    devide,
+    divide, // I was a dumbass that spelled divide "devide", shame on me.
     round_l,
     round_r,
-    id
+    id,
+    null,
+    
+    error = -1
 };
 
 enum value_type {
