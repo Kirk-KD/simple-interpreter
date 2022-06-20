@@ -2,7 +2,7 @@
 
 Tokenizer::Tokenizer(std::string c) {
     code = c;
-    code_lenght = sizeof(c);
+    code_lenght = c.size();
 
     advance();
 }
@@ -57,34 +57,25 @@ std::string Tokenizer::make_id() {
 }
 
 /**
- * Outputs the next token to locations of various token types based on
- * the type of the token value generated.
- * 
- * @param token_i Integer value token.
- * @param token_f Float value token.
- * @param token_s String value token.
- * @param token_c Char value token.
- * 
- * @return An enum of the type of the token value.
+ * Read from `code` and write the token generated to the corresponding
+ * token type in `last_tokens`, along with the token value type.
  */
-value_type Tokenizer::next_token(
-    token<int> &token_i,
-    token<float> &token_f,
-    token<std::string> &token_s,
-    token<char> &token_c
-) {
+void Tokenizer::next_token() {
     while (current_char != NULL_CHAR) {
         if (is_whitespace(current_char)) {
             skip_whitespace();
             continue;
         } else if (is_digit(current_char)) {
-            token_i = token<int>{token_type::integer, make_int()};
-            return value_type::int_t;
+            last_tokens.set_token(token<int>{token_type::integer, make_int()});
+            return;
         } else if (is_alpha(current_char) || current_char == '_') {
-            token_s = token<std::string>{token_type::id, make_id()};
-            return value_type::string_t;
+            last_tokens.set_token(token<std::string>{token_type::id, make_id()});
+            return;
+        } else {
+            last_tokens.set_null();
+            return;
         }
     }
 
-    return value_type::null_t;
+    last_tokens.set_null();
 }

@@ -7,6 +7,7 @@
 #include <string>
 
 #include "token.h"
+#include "tokens_container.h"
 
 inline bool is_whitespace(char c) {
     return c == ' ' || c == '\t' || c == '\n' || c == '\r';
@@ -35,16 +36,13 @@ class Tokenizer {
 
     std::string make_id();
 public:
+    TokensContainer last_tokens;
+
     Tokenizer(std::string code);
 
     ~Tokenizer();
 
-    value_type next_token(
-        token<int> &token_i,
-        token<float> &token_f,
-        token<std::string> &token_s,
-        token<char> &token_c
-    );
+    void next_token();
 };
 
 #endif

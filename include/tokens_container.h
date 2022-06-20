@@ -8,13 +8,23 @@
 class TokensContainer {
 public:
     value_type val_type;
-
     token<int> token_i;
     token<float> token_f;
     token<std::string> token_s;
-    token<char> token_c;
 
-    std::string val_to_string();
+    TokensContainer();
+
+    ~TokensContainer();
+
+    void set_token(token<int> token);
+
+    void set_token(token<float> token);
+
+    void set_token(token<std::string> token);
+
+    void set_null();
+
+    std::string to_string();
 };
 
 #endif

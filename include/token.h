@@ -16,8 +16,7 @@ enum value_type {
     null_t,
     int_t,
     float_t,
-    string_t,
-    char_t
+    string_t
 };
 
 template <typename T>
