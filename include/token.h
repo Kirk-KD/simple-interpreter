@@ -22,7 +22,7 @@ enum value_type {
     string_t
 };
 
-template <typename T>
+template<typename T>
 struct token
 {
     token_type type;
