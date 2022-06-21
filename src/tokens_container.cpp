@@ -83,7 +83,7 @@ token_type get_token_type(TokensContainer tok) {
         case value_type::null_t:
             return token_type::null;
         default:
-            return token_type::error;
+            return token_type::error_token;
     }
 }
 
@@ -104,7 +104,7 @@ token_type get_token_type(StaticTokensContainer tok) {
         case value_type::null_t:
             return token_type::null;
         default:
-            return token_type::error;
+            return token_type::error_token;
     }
 }
 

@@ -6,8 +6,10 @@
 #include "tokens_container.h"
 
 enum node_type {
+    int_lit,
     bin_op,
-    int_lit
+
+    error_node = -1
 };
 
 struct node {

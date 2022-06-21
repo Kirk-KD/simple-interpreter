@@ -3,6 +3,7 @@
 
 enum token_type {
     integer,
+    floating,
     plus,
     minus,
     multiply,
@@ -12,7 +13,7 @@ enum token_type {
     id,
     null,
     
-    error = -1
+    error_token = -1
 };
 
 enum value_type {

@@ -35,13 +35,19 @@ void Tokenizer::skip_whitespace() {
 /**
  * Makes an integer starting from the current character.
  */
-int Tokenizer::make_int() {
+make_int_result Tokenizer::make_int() {
     std::string res;
-    while (current_char != NULL_CHAR && is_digit(current_char)) {
+    bool is_int = true;
+    while (current_char != NULL_CHAR && (is_digit(current_char) || current_char == '.')) {
+        if (current_char == '.') {
+            if (is_int) is_int = false;
+            else break;
+        }
         res += current_char;
         advance();
     }
-    return std::stoi(res);
+    if (is_int) return make_int_result{std::stoi(res), 0, is_int};
+    else return make_int_result{0, std::stof(res), is_int};
 }
 
 /**
@@ -66,7 +72,9 @@ void Tokenizer::next_token() {
             skip_whitespace();
             continue;
         } else if (is_digit(current_char)) {
-            last_tokens.set_token(token<int>{token_type::integer, make_int()});
+            make_int_result res = make_int();
+            if (res.is_int) last_tokens.set_token(token<int>{token_type::integer, res.int_res});
+            else last_tokens.set_token(token<float>{token_type::floating, res.float_res});
             return;
         } else if (is_alpha(current_char) || current_char == '_') {
             last_tokens.set_token(token<std::string>{token_type::id, make_id()});
@@ -93,7 +101,7 @@ void Tokenizer::next_token() {
                     tt = token_type::round_r;
                     break;
                 default:
-                    tt = token_type::error;
+                    tt = token_type::error_token;
                     break;
             }
             last_tokens.set_token(token<std::string>{tt, std::string{current_char}});
