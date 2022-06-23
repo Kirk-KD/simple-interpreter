@@ -31,6 +31,13 @@ node_p null_node() {
 }
 
 /**
+ * Makes a node that holds a type of `error_node`.
+ */
+node_p error_node() {
+    return node_factory(node_type::error_node);
+}
+
+/**
  * Recursively converts a `node` to string, for logging purposes.
  * 
  * @param n The node to be converted.

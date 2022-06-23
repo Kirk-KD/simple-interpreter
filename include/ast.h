@@ -21,14 +21,16 @@ struct node {
 
 typedef std::unique_ptr<node> node_p;
 
+node_p null_node();
+
+node_p error_node();
+
 node_p node_factory(
     node_type type,
-    StaticTokensContainer token_sc,
-    node_p left,
-    node_p right
+    StaticTokensContainer token_sc = StaticTokensContainer(),
+    node_p left = null_node(),
+    node_p right = null_node()
 );
-
-node_p null_node();
 
 std::string node_to_string(const node& n);
 

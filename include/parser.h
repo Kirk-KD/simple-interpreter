@@ -12,7 +12,7 @@ public:
 
     ~Parser();
 
-    int require_next(token_type type);
+    bool require_next(token_type type);
 
     node_p parse();
 
