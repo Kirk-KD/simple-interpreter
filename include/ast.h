@@ -23,7 +23,7 @@ typedef std::unique_ptr<node> node_p;
 
 node_p null_node();
 
-node_p error_node();
+node_p err_node();
 
 node_p node_factory(
     node_type type,

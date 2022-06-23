@@ -8,6 +8,7 @@
 
 #include "token.h"
 #include "tokens_container.h"
+#include "exception.h"
 
 inline bool is_whitespace(char c) {
     return c == ' ' || c == '\t' || c == '\n' || c == '\r';
@@ -29,7 +30,7 @@ struct make_int_result {
 
 class Tokenizer {
     std::string code;
-    int code_lenght;
+    int code_length;
 
     int position = -1;
     char current_char = NULL_CHAR;

@@ -2,7 +2,7 @@
 
 Tokenizer::Tokenizer(std::string c) {
     code = c;
-    code_lenght = c.size();
+    code_length = c.size();
 
     advance();
 }
@@ -15,7 +15,7 @@ Tokenizer::~Tokenizer() {}
  * to NULL_CHAR.
  */
 void Tokenizer::advance() {
-    if (position + 1 < code_lenght) {
+    if (position + 1 < code_length) {
         ++position;
         current_char = code[position];
     } else {
@@ -102,6 +102,8 @@ void Tokenizer::next_token() {
                     break;
                 default:
                     tt = token_type::error_token;
+
+                    throw UnexpectedCharacter(current_char, position);
                     break;
             }
             last_tokens.set_token(token<std::string>{tt, std::string{current_char}});

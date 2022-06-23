@@ -33,7 +33,7 @@ node_p null_node() {
 /**
  * Makes a node that holds a type of `error_node`.
  */
-node_p error_node() {
+node_p err_node() {
     return node_factory(node_type::error_node);
 }
 
