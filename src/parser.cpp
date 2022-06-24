@@ -22,8 +22,13 @@ node_p Parser::factor() {
 
     switch (get_token_type(tokenizer.last_tokens)) {
         case token_type::integer:
-            n = node_factory(node_type::int_lit, StaticTokensContainer(tokenizer.last_tokens.token_i));
+            n = node_factory(node_type::  int_lit, StaticTokensContainer(tokenizer.last_tokens.token_i));
             require_next(token_type::integer);
+
+            return n;
+        case token_type::floating:
+            n = node_factory(node_type::float_lit, StaticTokensContainer(tokenizer.last_tokens.token_f));
+            require_next(token_type::floating);
 
             return n;
         default:

@@ -7,6 +7,7 @@
 
 enum node_type {
     int_lit,
+    float_lit,
     bin_op,
 
     error_node = -1
