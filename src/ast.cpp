@@ -1,6 +1,13 @@
 #include "ast.h"
 
 /**
+ * Makes a nullptr unique_ptr of type `node`.
+ */
+node_p null_node() {
+    return node_p{};
+}
+
+/**
  * A factory for constructing a `node` struct.
  * 
  * @param type node type
@@ -18,16 +25,9 @@ node_p node_factory(
     auto node_ptr = std::make_unique<node>();
     (*node_ptr).type = type;
     (*node_ptr).token_sc = token_sc;
-    (*node_ptr).left = std::move(left);
-    (*node_ptr).right = std::move(right);
+    (*node_ptr).left = left ? std::move(left) : null_node();
+    (*node_ptr).right = right ? std::move(right) : null_node();
     return node_ptr;
-}
-
-/**
- * Makes a nullptr unique_ptr of type `node`.
- */
-node_p null_node() {
-    return node_p{};
 }
 
 /**

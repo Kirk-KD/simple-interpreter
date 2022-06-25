@@ -6,23 +6,24 @@ Parser::Parser(std::string code) : tokenizer(Tokenizer(code)) {
 
 Parser::~Parser() {}
 
-bool Parser::require_next(token_type type) {
+void Parser::require_next(token_type type) {
     token_type t = get_token_type(tokenizer.last_tokens);
     tokenizer.next_token();
-    return t == type;
+    if (t != type) throw UnexpectedToken(t, type);
 }
 
 node_p Parser::parse() {
     return expr();
 }
 
-// Grammars
+// grammars.txt
 node_p Parser::factor() {
     node_p n = null_node();
 
-    switch (get_token_type(tokenizer.last_tokens)) {
+    token_type t = get_token_type(tokenizer.last_tokens);
+    switch (t) {
         case token_type::integer:
-            n = node_factory(node_type::  int_lit, StaticTokensContainer(tokenizer.last_tokens.token_i));
+            n = node_factory(node_type::int_lit, StaticTokensContainer(tokenizer.last_tokens.token_i));
             require_next(token_type::integer);
 
             return n;
@@ -31,6 +32,14 @@ node_p Parser::factor() {
             require_next(token_type::floating);
 
             return n;
+        case token_type::plus:
+        case token_type::minus: {
+            token<std::string> tok = tokenizer.last_tokens.token_s;
+            require_next(t);
+            n = node_factory(node_type::una_op, StaticTokensContainer(tok), null_node(), factor());
+
+            return n;
+        }
         default:
             return null_node();
     }

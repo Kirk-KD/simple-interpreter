@@ -3,6 +3,7 @@
 
 #include "tokenizer.h"
 #include "ast.h"
+#include "exception.h"
 
 class Parser {
     Tokenizer tokenizer;
@@ -12,7 +13,7 @@ public:
 
     ~Parser();
 
-    bool require_next(token_type type);
+    void require_next(token_type type);
 
     node_p parse();
 

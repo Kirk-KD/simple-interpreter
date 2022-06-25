@@ -18,6 +18,24 @@ VisitResult Interpreter::visit(const node_p& n) {
                 return VisitResult(visit((*n).left) / visit((*n).right));
             }
         }
+        case node_type::una_op: {
+            std::string op = (*n).token_sc.token_s.value;
+            if (op == "+") {
+                VisitResult vr = visit((*n).right);
+                if (vr.type == value_type::int_t) {
+                    return VisitResult(vr.value_i);
+                } else if (vr.type == value_type::float_t) {
+                    return VisitResult(vr.value_f);
+                }
+            } else if (op == "-") {
+                VisitResult vr = visit((*n).right);
+                if (vr.type == value_type::int_t) {
+                    return VisitResult(-vr.value_i);
+                } else if (vr.type == value_type::float_t) {
+                    return VisitResult(-vr.value_f);
+                }
+            }
+        }
         default:
             break; // TODO add error throwing
     }

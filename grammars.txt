@@ -1,0 +1,8 @@
+factor      : INT_LIT
+            | FLOAT_LIT
+            | PLUS factor
+            | MINUS factor
+term        : factor ((MULTIPLY | DIVIDE) factor)*
+expr        : term ((PLUS | MINUS) term)*
+stmt        : expr SEMI
+compound    : (stmt)*
