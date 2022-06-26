@@ -2,6 +2,7 @@ factor      : INT_LIT
             | FLOAT_LIT
             | PLUS factor
             | MINUS factor
+            | ROUND_L expr ROUND_R
 term        : factor ((MULTIPLY | DIVIDE) factor)*
 expr        : term ((PLUS | MINUS) term)*
 stmt        : expr SEMI

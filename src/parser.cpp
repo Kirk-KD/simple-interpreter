@@ -40,6 +40,12 @@ node_p Parser::factor() {
 
             return n;
         }
+        case token_type::round_l:
+            require_next(token_type::round_l);
+            n = expr();
+            require_next(token_type::round_r);
+            
+            return n;
         default:
             return null_node();
     }
