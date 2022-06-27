@@ -44,6 +44,7 @@ make_num_result Tokenizer::make_num() {
             else break;
         } else if (current_char == 'd') {
             type = num_type::double_res;
+            advance();
             break;
         }
         res += current_char;

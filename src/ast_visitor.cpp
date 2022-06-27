@@ -35,64 +35,134 @@ std::string VisitResult::to_string() {
         case value_type::null_t:
             return "NULL";
         default:
-            return "Unexpected to_string type";
+            return "Unexpected to_string type " + std::to_string(type);
     }
 }
 
 VisitResult VisitResult::operator+(const VisitResult& right) {
-    if (type == value_type::float_t && right.type == value_type::int_t) {
-        return VisitResult(value_f + right.value_i);
-    } else if (type == value_type::int_t && right.type == value_type::float_t) {
-        return VisitResult(value_i + right.value_f);
-    } else if (type == value_type::float_t && right.type == value_type::float_t) {
-        return VisitResult(value_f + right.value_f);
-    } else if (type == value_type::int_t && right.type == value_type::int_t) {
-        return VisitResult(value_i + right.value_i);
-    } else if (type == value_type::string_t && right.type == value_type::string_t) {
-        return VisitResult(value_s + right.value_s);
-    } else {
-        // TODO error handling
+    switch (type) {
+        case value_type::int_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_i + right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_i + right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_i + right.value_d);
+            }
+        case value_type::float_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_f + right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_f + right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_f + right.value_d);
+            }
+        case value_type::double_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_d + right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_d + right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_d + right.value_d);
+            }
     }
 }
 
 VisitResult VisitResult::operator-(const VisitResult& right) {
-    if (type == value_type::float_t && right.type == value_type::int_t) {
-        return VisitResult(value_f - right.value_i);
-    } else if (type == value_type::int_t && right.type == value_type::float_t) {
-        return VisitResult(value_i - right.value_f);
-    } else if (type == value_type::float_t && right.type == value_type::float_t) {
-        return VisitResult(value_f - right.value_f);
-    } else if (type == value_type::int_t && right.type == value_type::int_t) {
-        return VisitResult(value_i - right.value_i);
-    } else {
-        // TODO error handling
+    switch (type) {
+        case value_type::int_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_i - right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_i - right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_i - right.value_d);
+            }
+        case value_type::float_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_f - right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_f - right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_f - right.value_d);
+            }
+        case value_type::double_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_d - right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_d - right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_d - right.value_d);
+            }
     }
 }
 
 VisitResult VisitResult::operator*(const VisitResult& right) {
-    if (type == value_type::float_t && right.type == value_type::int_t) {
-        return VisitResult(value_f * right.value_i);
-    } else if (type == value_type::int_t && right.type == value_type::float_t) {
-        return VisitResult(value_i * right.value_f);
-    } else if (type == value_type::float_t && right.type == value_type::float_t) {
-        return VisitResult(value_f * right.value_f);
-    } else if (type == value_type::int_t && right.type == value_type::int_t) {
-        return VisitResult(value_i * right.value_i);
-    } else {
-        // TODO error handling
+    switch (type) {
+        case value_type::int_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_i * right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_i * right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_i * right.value_d);
+            }
+        case value_type::float_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_f * right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_f * right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_f * right.value_d);
+            }
+        case value_type::double_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_d * right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_d * right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_d * right.value_d);
+            }
     }
 }
 
 VisitResult VisitResult::operator/(const VisitResult& right) {
-    if (type == value_type::float_t && right.type == value_type::int_t) {
-        return VisitResult(value_f / right.value_i);
-    } else if (type == value_type::int_t && right.type == value_type::float_t) {
-        return VisitResult(value_i / right.value_f);
-    } else if (type == value_type::float_t && right.type == value_type::float_t) {
-        return VisitResult(value_f / right.value_f);
-    } else if (type == value_type::int_t && right.type == value_type::int_t) {
-        return VisitResult(value_i / right.value_i);
-    } else {
-        // TODO error handling
+    switch (type) {
+        case value_type::int_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_i / right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_i / right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_i / right.value_d);
+            }
+        case value_type::float_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_f / right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_f / right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_f / right.value_d);
+            }
+        case value_type::double_t:
+            switch (right.type) {
+                case value_type::int_t:
+                    return VisitResult(value_d / right.value_i);
+                case value_type::float_t:
+                    return VisitResult(value_d / right.value_f);
+                case value_type::double_t:
+                    return VisitResult(value_d / right.value_d);
+            }
     }
 }

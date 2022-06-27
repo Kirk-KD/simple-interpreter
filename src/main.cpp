@@ -4,7 +4,7 @@
 #include "exception.h"
 
 int main() {
-    Parser parser("1 + 1");
+    Parser parser("1.1d - 2");
     Interpreter interpreter;
 
     try {
