@@ -4,7 +4,7 @@
 #include "exception.h"
 
 int main() {
-    Parser parser("1 + (3 - 3)"); // inaccurate float, add double later
+    Parser parser("1 + 1");
     Interpreter interpreter;
 
     try {

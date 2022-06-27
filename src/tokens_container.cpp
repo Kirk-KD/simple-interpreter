@@ -25,6 +25,16 @@ void TokensContainer::set_token(token<float> token) {
 }
 
 /**
+ * Sets a token of type double.
+ * 
+ * @param token token
+ */
+void TokensContainer::set_token(token<double> token) {
+    token_d = token;
+    val_type = value_type::double_t;
+}
+
+/**
  * Sets a token of type string.
  * 
  * @param token Token
@@ -59,6 +69,11 @@ StaticTokensContainer::StaticTokensContainer(token<float> tok) {
     token_f = tok;
 }
 
+StaticTokensContainer::StaticTokensContainer(token<double> tok) {
+    val_type = value_type::double_t;
+    token_d = tok;
+}
+
 StaticTokensContainer::StaticTokensContainer(token<std::string> tok) {
     val_type = value_type::string_t;
     token_s = tok;
@@ -78,6 +93,8 @@ token_type get_token_type(TokensContainer tok) {
             return tok.token_i.type;
         case value_type::float_t:
             return tok.token_f.type;
+        case value_type::double_t:
+            return tok.token_d.type;
         case value_type::string_t:
             return tok.token_s.type;
         case value_type::null_t:
@@ -99,6 +116,8 @@ token_type get_token_type(StaticTokensContainer tok) {
             return tok.token_i.type;
         case value_type::float_t:
             return tok.token_f.type;
+        case value_type::double_t:
+            return tok.token_d.type;
         case value_type::string_t:
             return tok.token_s.type;
         case value_type::null_t:
@@ -121,6 +140,8 @@ std::string value_to_string(TokensContainer tok) {
             return std::to_string(tok.token_i.value);
         case value_type::float_t:
             return std::to_string(tok.token_f.value);
+        case value_type::double_t:
+            return std::to_string(tok.token_d.value);
         case value_type::string_t:
             return tok.token_s.value;
         case value_type::null_t:
@@ -143,6 +164,8 @@ std::string value_to_string(StaticTokensContainer tok) {
             return std::to_string(tok.token_i.value);
         case value_type::float_t:
             return std::to_string(tok.token_f.value);
+        case value_type::double_t:
+            return std::to_string(tok.token_d.value);
         case value_type::string_t:
             return tok.token_s.value;
         case value_type::null_t:

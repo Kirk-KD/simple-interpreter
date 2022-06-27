@@ -11,3 +11,7 @@ UnexpectedCharacter::UnexpectedCharacter(char c, int pos) {
 UnexpectedToken::UnexpectedToken(token_type got, token_type expected) {
     message = fmt::format("Unexpected token: Type {} (Type {} expected)", got, expected);
 }
+
+SyntaxError::SyntaxError(int pos, std::string detail) {
+    message = fmt::format("Syntax error: {} at position: {}", detail, pos);
+}

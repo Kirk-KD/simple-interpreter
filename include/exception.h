@@ -24,4 +24,9 @@ public:
     UnexpectedToken(token_type got, token_type expected);
 };
 
+class SyntaxError : public Exception {
+public:
+    SyntaxError(int pos, std::string detail);
+};
+
 #endif

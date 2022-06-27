@@ -47,6 +47,6 @@ std::string node_to_string(const node& n) {
     return "Node(Type=" + std::to_string(n.type) +
             ", CTC=CTC(Type=" + std::to_string(get_token_type(n.token_sc)) +
             ", Value=" + value_to_string(n.token_sc) +
-            "), Left=" + (n.left ? node_to_string(*(n.left)) : "NULL") +
-            ", Right=" + (n.right ? node_to_string(*(n.right)) : "NULL") + ")";
+            "), Left=" + (n.left ? node_to_string(*n.left) : "NULL") +
+            ", Right=" + (n.right ? node_to_string(*n.right) : "NULL") + ")";
 }

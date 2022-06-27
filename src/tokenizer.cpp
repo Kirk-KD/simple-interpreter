@@ -35,19 +35,28 @@ void Tokenizer::skip_whitespace() {
 /**
  * Makes an integer starting from the current character.
  */
-make_int_result Tokenizer::make_int() {
+make_num_result Tokenizer::make_num() {
     std::string res;
-    bool is_int = true;
-    while (current_char != NULL_CHAR && (is_digit(current_char) || current_char == '.')) {
+    num_type type = num_type::int_res;
+    while (current_char != NULL_CHAR && (is_digit(current_char) || current_char == '.' || current_char == 'd')) {
         if (current_char == '.') {
-            if (is_int) is_int = false;
+            if (type == num_type::int_res) type = num_type::float_res;
             else break;
+        } else if (current_char == 'd') {
+            type = num_type::double_res;
+            break;
         }
         res += current_char;
         advance();
     }
-    if (is_int) return make_int_result{std::stoi(res), 0, is_int};
-    else return make_int_result{0, std::stof(res), is_int};
+    switch (type) {
+        case num_type::int_res:
+            return make_num_result{std::stoi(res), 0, 0, type};
+        case num_type::float_res:
+            return make_num_result{0, std::stof(res), 0, type};
+        case num_type::double_res:
+            return make_num_result{0, 0, std::stod(res), type};
+    }
 }
 
 /**
@@ -72,13 +81,22 @@ void Tokenizer::next_token() {
             skip_whitespace();
             continue;
         } else if (is_digit(current_char)) {
-            make_int_result res = make_int();
-            if (res.is_int) last_tokens.set_token(token<int>{token_type::integer, res.int_res});
-            else last_tokens.set_token(token<float>{token_type::floating, res.float_res});
+            make_num_result res = make_num();
+            switch (res.type) {
+                case num_type::int_res:
+                    last_tokens.set_token(token<int>{token_type::integer, res.int_res});
+                    break;
+                case num_type::float_res:
+                    last_tokens.set_token(token<float>{token_type::floating, res.float_res});
+                    break;
+                case num_type::double_res:
+                    last_tokens.set_token(token<double>{token_type::decimal, res.double_res});
+                    break;
+            }
             return;
-        } else if (is_alpha(current_char) || current_char == '_') {
-            last_tokens.set_token(token<std::string>{token_type::id, make_id()});
-            return;
+        // } else if (is_alpha(current_char) || current_char == '_') {
+        //     last_tokens.set_token(token<std::string>{token_type::id, make_id()});
+        //     return;
         } else { // single character operators
             token_type tt;
             switch (current_char) {

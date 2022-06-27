@@ -2,15 +2,18 @@
 #define TOKEN_H
 
 enum token_type {
-    integer,
+    integer,    // 0
     floating,
-    plus,
+    decimal,
+
+    plus,       // 3
     minus,
-    multiply,
-    divide, // I was a dumbass that spelled divide "devide", shame on me.
+    multiply,   
+    divide,
     round_l,
     round_r,
-    id,
+
+    id,         // 9
     null,
     
     error_token = -1
@@ -20,6 +23,7 @@ enum value_type {
     null_t,
     int_t,
     float_t,
+    double_t,
     string_t
 };
 

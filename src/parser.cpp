@@ -32,6 +32,11 @@ node_p Parser::factor() {
             require_next(token_type::floating);
 
             return n;
+        case token_type::decimal:
+            n = node_factory(node_type::double_lit, StaticTokensContainer(tokenizer.last_tokens.token_d));
+            require_next(token_type::decimal);
+
+            return n;
         case token_type::plus:
         case token_type::minus: {
             token<std::string> tok = tokenizer.last_tokens.token_s;

@@ -8,6 +8,7 @@
 enum node_type {
     int_lit,
     float_lit,
+    double_lit,
 
     bin_op,
     una_op,

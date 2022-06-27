@@ -10,6 +10,11 @@ VisitResult::VisitResult(float v_f) {
     type = value_type::float_t;
 }
 
+VisitResult::VisitResult(double v_d) {
+    value_d = v_d;
+    type = value_type::double_t;
+}
+
 VisitResult::VisitResult(std::string v_s) {
     value_s = v_s;
     type = value_type::string_t;
@@ -23,12 +28,14 @@ std::string VisitResult::to_string() {
             return std::to_string(value_i);
         case value_type::float_t:
             return std::to_string(value_f);
+        case value_type::double_t:
+            return std::to_string(value_d);
         case value_type::string_t:
             return value_s;
         case value_type::null_t:
             return "NULL";
         default:
-            return "Error";
+            return "Unexpected to_string type";
     }
 }
 

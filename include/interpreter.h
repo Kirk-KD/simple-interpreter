@@ -3,6 +3,7 @@
 
 #include "ast_visitor.h"
 #include "parser.h"
+#include "exception.h"
 
 class Interpreter : public AstVisitor {
 public:

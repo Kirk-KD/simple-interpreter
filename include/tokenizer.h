@@ -22,10 +22,18 @@ inline bool is_alpha(char c) {
     return (c >= 65 && c <= 90) || (c >= 97 && c <= 122);
 }
 
-struct make_int_result {
+enum num_type {
+    int_res,
+    float_res,
+    double_res
+};
+
+struct make_num_result {
     int int_res;
     float float_res;
-    bool is_int;
+    double double_res;
+
+    num_type type;
 };
 
 class Tokenizer {
@@ -39,7 +47,7 @@ class Tokenizer {
 
     void skip_whitespace();
 
-    make_int_result make_int();
+    make_num_result make_num();
 
     std::string make_id();
 public:

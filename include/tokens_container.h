@@ -10,6 +10,7 @@ public:
     value_type val_type;
     token<int> token_i;
     token<float> token_f;
+    token<double> token_d;
     token<std::string> token_s;
 
     TokensContainer();
@@ -19,6 +20,8 @@ public:
     void set_token(token<int> token);
 
     void set_token(token<float> token);
+
+    void set_token(token<double> token);
 
     void set_token(token<std::string> token);
 
@@ -30,6 +33,7 @@ public:
     value_type val_type;
     token<int> token_i;
     token<float> token_f;
+    token<double> token_d;
     token<std::string> token_s;
 
     StaticTokensContainer();
@@ -37,6 +41,8 @@ public:
     StaticTokensContainer(token<int> tok);
     
     StaticTokensContainer(token<float> tok);
+
+    StaticTokensContainer(token<double> tok);
     
     StaticTokensContainer(token<std::string> tok);
 

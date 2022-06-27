@@ -9,11 +9,14 @@ public:
 
     int value_i;
     float value_f;
+    double value_d;
     std::string value_s;
 
     VisitResult(int v_i);
 
     VisitResult(float v_f);
+
+    VisitResult(double v_d);
 
     VisitResult(std::string v_s);
 
