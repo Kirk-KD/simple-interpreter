@@ -1,6 +1,8 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include <vector>
+
 #include "tokenizer.h"
 #include "ast.h"
 #include "exception.h"
@@ -15,7 +17,7 @@ public:
 
     void require_next(token_type type);
 
-    node_p parse();
+    node_p parse(bool expr_only = false);
 
     // Grammars
     node_p factor();
@@ -23,6 +25,12 @@ public:
     node_p term();
 
     node_p expr();
+
+    node_p stmt();
+
+    std::vector<node_p> stmt_list();
+
+    node_p program();
 };
 
 #endif

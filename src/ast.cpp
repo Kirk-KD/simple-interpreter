@@ -20,13 +20,15 @@ node_p node_factory(
     node_type type,
     StaticTokensContainer token_sc,
     node_p left,
-    node_p right
+    node_p right,
+    std::vector<node_p> children
 ) {
     auto node_ptr = std::make_unique<node>();
     (*node_ptr).type = type;
     (*node_ptr).token_sc = token_sc;
     (*node_ptr).left = left ? std::move(left) : null_node();
     (*node_ptr).right = right ? std::move(right) : null_node();
+    (*node_ptr).children = std::move(children);
     return node_ptr;
 }
 

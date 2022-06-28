@@ -121,9 +121,10 @@ void Tokenizer::next_token() {
                 case ')':
                     tt = token_type::round_r;
                     break;
+                case ';':
+                    tt = token_type::semi;
+                    break;
                 default:
-                    tt = token_type::error_token;
-
                     throw UnexpectedCharacter(current_char, position);
                     break;
             }

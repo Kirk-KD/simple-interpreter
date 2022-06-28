@@ -12,11 +12,12 @@ void Parser::require_next(token_type type) {
     if (t != type) throw UnexpectedToken(t, type);
 }
 
-node_p Parser::parse() {
-    return expr();
+node_p Parser::parse(bool expr_only) {
+    return expr_only ? expr() : program();
 }
 
 // grammars.txt
+
 node_p Parser::factor() {
     node_p n = null_node();
 
@@ -52,7 +53,7 @@ node_p Parser::factor() {
             
             return n;
         default:
-            return null_node();
+            throw IncompleteFeature();
     }
 }
 
@@ -89,4 +90,32 @@ node_p Parser::expr() {
     }
 
     return n;
+}
+
+node_p Parser::stmt() {
+    node_p n = expr();
+    if (n) require_next(token_type::semi);
+
+    return n;
+}
+
+std::vector<node_p> Parser::stmt_list() {
+    std::vector<node_p> stmts;
+
+    node_p n = stmt();
+    if (!n) return stmts;
+    else stmts.push_back(std::move(n));
+
+    while (get_token_type(tokenizer.last_tokens) != token_type::null) {
+        stmts.push_back(std::move(stmt()));
+    }
+
+    return stmts;
+}
+
+node_p Parser::program() {
+    std::vector<node_p> stmts = stmt_list();
+
+    if (stmts.size() == 0) return null_node();
+    else return node_factory(node_type::program, StaticTokensContainer(), null_node(), null_node(), std::move(stmts));
 }

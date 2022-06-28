@@ -7,7 +7,7 @@ void run_eval_cases() {
         try {
             Parser parser(EVAL_CASES[i].code);
             Interpreter interpreter;
-            VisitResult result = interpreter.visit(parser.parse());
+            VisitResult result = interpreter.visit(parser.parse(true));
 
             if (result.type == EVAL_CASES[i].res_type) {
                 switch (result.type) {

@@ -43,6 +43,13 @@ VisitResult Interpreter::visit(const node_p& n) {
                 }
             }
         }
+        case node_type::program:
+            for (node_p &child : (*n).children) {
+                // temporary way of handling a program - outputing the calculated value of each line
+                VisitResult vr = visit(child);
+                std::cout << vr.to_string() << std::endl;
+            }
+            return VisitResult(0);
         default:
             throw IncompleteFeature();
     }

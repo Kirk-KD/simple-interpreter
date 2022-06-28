@@ -8,12 +8,14 @@ enum token_type {
 
     plus,       // 3
     minus,
-    multiply,   
+    multiply,
     divide,
     round_l,
     round_r,
 
-    id,         // 9
+    semi,       // 9
+
+    id,         // 10
     null,
     
     error_token = -1
