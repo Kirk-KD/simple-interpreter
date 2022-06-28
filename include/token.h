@@ -20,11 +20,11 @@ enum token_type {
 };
 
 enum value_type {
-    null_t,
     int_t,
     float_t,
     double_t,
-    string_t
+    string_t,
+    null_t
 };
 
 template<typename T>
