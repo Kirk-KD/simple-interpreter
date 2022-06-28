@@ -1,7 +1,7 @@
 #include "test/test_runner.h"
 
 void run_eval_cases() {
-    for (int i = 0; i < EVAL_CASES_SIZE; ++i) {
+    for (unsigned int i = 0; i < EVAL_CASES_SIZE; ++i) {
         std::cout << fmt::format("TEST CASE #{}: {}: ", i + 1, EVAL_CASES[i].name);
 
         try {
@@ -29,6 +29,8 @@ void run_eval_cases() {
                             return;
                         }
                         break;
+                    default:
+                        std::cout << fmt::format("Unexpected type: {}", result.type);
                 }
             } else {
                 std::cout << fmt::format("FAILED: type {} expected, got {}", result.type, EVAL_CASES[i].res_type) << std::endl;

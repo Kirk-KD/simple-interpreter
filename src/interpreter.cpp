@@ -44,6 +44,6 @@ VisitResult Interpreter::visit(const node_p& n) {
             }
         }
         default:
-            break; // TODO add error throwing
+            throw IncompleteFeature();
     }
 }

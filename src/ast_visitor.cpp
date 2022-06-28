@@ -49,6 +49,8 @@ VisitResult VisitResult::operator+(const VisitResult& right) {
                     return VisitResult(value_i + right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_i + right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
         case value_type::float_t:
             switch (right.type) {
@@ -58,6 +60,8 @@ VisitResult VisitResult::operator+(const VisitResult& right) {
                     return VisitResult(value_f + right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_f + right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
         case value_type::double_t:
             switch (right.type) {
@@ -67,7 +71,11 @@ VisitResult VisitResult::operator+(const VisitResult& right) {
                     return VisitResult(value_d + right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_d + right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
+        default:
+            throw ShouldNotReach("VisitResult");
     }
 }
 
@@ -81,6 +89,8 @@ VisitResult VisitResult::operator-(const VisitResult& right) {
                     return VisitResult(value_i - right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_i - right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
         case value_type::float_t:
             switch (right.type) {
@@ -90,6 +100,8 @@ VisitResult VisitResult::operator-(const VisitResult& right) {
                     return VisitResult(value_f - right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_f - right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
         case value_type::double_t:
             switch (right.type) {
@@ -99,7 +111,11 @@ VisitResult VisitResult::operator-(const VisitResult& right) {
                     return VisitResult(value_d - right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_d - right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
+        default:
+            throw ShouldNotReach("VisitResult");
     }
 }
 
@@ -113,6 +129,8 @@ VisitResult VisitResult::operator*(const VisitResult& right) {
                     return VisitResult(value_i * right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_i * right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
         case value_type::float_t:
             switch (right.type) {
@@ -122,6 +140,8 @@ VisitResult VisitResult::operator*(const VisitResult& right) {
                     return VisitResult(value_f * right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_f * right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
         case value_type::double_t:
             switch (right.type) {
@@ -131,7 +151,11 @@ VisitResult VisitResult::operator*(const VisitResult& right) {
                     return VisitResult(value_d * right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_d * right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
+        default:
+            throw ShouldNotReach("VisitResult");
     }
 }
 
@@ -145,6 +169,8 @@ VisitResult VisitResult::operator/(const VisitResult& right) {
                     return VisitResult(value_i / right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_i / right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
         case value_type::float_t:
             switch (right.type) {
@@ -154,6 +180,8 @@ VisitResult VisitResult::operator/(const VisitResult& right) {
                     return VisitResult(value_f / right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_f / right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
         case value_type::double_t:
             switch (right.type) {
@@ -163,6 +191,10 @@ VisitResult VisitResult::operator/(const VisitResult& right) {
                     return VisitResult(value_d / right.value_f);
                 case value_type::double_t:
                     return VisitResult(value_d / right.value_d);
+                default:
+                    throw ShouldNotReach("VisitResult");
             }
+        default:
+            throw ShouldNotReach("VisitResult");
     }
 }

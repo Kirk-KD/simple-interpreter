@@ -57,6 +57,8 @@ make_num_result Tokenizer::make_num() {
             return make_num_result{0, std::stof(res), 0, type};
         case num_type::double_res:
             return make_num_result{0, 0, std::stod(res), type};
+        default:
+            throw ShouldNotReach("make_num");
     }
 }
 

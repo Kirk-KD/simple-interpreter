@@ -2,6 +2,7 @@
 #define AST_VISITOR_H
 
 #include "ast.h"
+#include "exception.h"
 
 class VisitResult {
 public:

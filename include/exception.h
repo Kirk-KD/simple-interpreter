@@ -14,6 +14,8 @@ public:
     const char* what();
 };
 
+// User exceptions
+
 class UnexpectedCharacter : public Exception {
 public:
     UnexpectedCharacter(char c, int pos);
@@ -27,6 +29,18 @@ public:
 class SyntaxError : public Exception {
 public:
     SyntaxError(int pos, std::string detail);
+};
+
+// Dev exceptions
+
+class IncompleteFeature : public Exception {
+public:
+    IncompleteFeature();
+};
+
+class ShouldNotReach : public Exception {
+public:
+    ShouldNotReach(std::string detail);
 };
 
 #endif
