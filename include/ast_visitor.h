@@ -21,6 +21,8 @@ public:
 
     VisitResult(std::string v_s);
 
+    VisitResult();
+
     ~VisitResult();
 
     std::string to_string();

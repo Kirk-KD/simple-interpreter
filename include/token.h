@@ -33,7 +33,8 @@ enum value_type {
     float_t,
     double_t,
     string_t,
-    null_t
+
+    null_t      = -1
 };
 
 template<typename T>

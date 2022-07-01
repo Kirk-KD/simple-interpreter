@@ -20,6 +20,10 @@ VisitResult::VisitResult(std::string v_s) {
     type = value_type::string_t;
 }
 
+VisitResult::VisitResult() {
+    type = value_type::null_t;
+}
+
 VisitResult::~VisitResult() {}
 
 std::string VisitResult::to_string() {

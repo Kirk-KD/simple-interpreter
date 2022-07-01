@@ -44,14 +44,17 @@ VisitResult Interpreter::visit(const node_p& n) {
             }
         }
         case node_type::var_decl: {
-            return VisitResult("var_decl placeholder");
+            symbols.set((*(*n).var_node).token_sc.token_s.value);
+            return VisitResult();
         }
         case node_type::program:
+            // temporary way of handling a program
             for (node_p &child : (*n).children) {
-                // temporary way of handling a program - outputing the calculated value of each line
                 VisitResult vr = visit(child);
-                std::cout << vr.to_string() << std::endl;
+                if (vr.type != value_type::null_t)
+                    std::cout << vr.to_string() << std::endl;
             }
+            std::cout << symbols.to_string() << std::endl;
             return VisitResult(0);
         default:
             throw IncompleteFeature(fmt::format("Unknown node type {} in Interpreter::visit", (*n).type));
