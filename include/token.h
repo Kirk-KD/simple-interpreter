@@ -2,23 +2,30 @@
 #define TOKEN_H
 
 enum token_type {
-    integer,    // 0
+    integer,        // 0
     floating,
-    decimal,
+    dbl,
 
-    plus,       // 3
+    int_type,       // 3
+    float_type,
+    double_type,
+
+    plus,           // 6
     minus,
     multiply,
     divide,
     round_l,
     round_r,
+    assign,
 
-    semi,       // 9
+    semi,
+    colon,
 
-    id,         // 10
+    id,
+    keyword,
     null,
-    
-    error_token = -1
+
+    error_token     = -1
 };
 
 enum value_type {

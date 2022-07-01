@@ -9,6 +9,8 @@
 #include "token.h"
 #include "tokens_container.h"
 #include "exception.h"
+#include "utils.h"
+#include "builtin_consts.h"
 
 inline bool is_whitespace(char c) {
     return c == ' ' || c == '\t' || c == '\n' || c == '\r';

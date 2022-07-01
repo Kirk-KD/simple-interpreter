@@ -20,8 +20,8 @@ SyntaxError::SyntaxError(int pos, std::string detail) {
 
 // Dev exceptions
 
-IncompleteFeature::IncompleteFeature() {
-    message = "This feature is not yet implemented.";
+IncompleteFeature::IncompleteFeature(std::string detail) {
+    message = fmt::format("This feature is not yet implemented. Detail: {}", detail);
 }
 
 ShouldNotReach::ShouldNotReach(std::string detail) {

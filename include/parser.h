@@ -9,7 +9,6 @@
 
 class Parser {
     Tokenizer tokenizer;
-    TokensContainer current_token;
 public:
     Parser(std::string code);
 
@@ -25,6 +24,14 @@ public:
     node_p term();
 
     node_p expr();
+
+    node_p variable();
+
+    node_p type_spec();
+
+    node_p var_decl();
+    
+    node_p var_assign();
 
     node_p stmt();
 

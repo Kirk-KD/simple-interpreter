@@ -93,13 +93,18 @@ void Tokenizer::next_token() {
                     last_tokens.set_token(token<float>{token_type::floating, res.float_res});
                     break;
                 case num_type::double_res:
-                    last_tokens.set_token(token<double>{token_type::decimal, res.double_res});
+                    last_tokens.set_token(token<double>{token_type::dbl, res.double_res});
                     break;
             }
             return;
-        // } else if (is_alpha(current_char) || current_char == '_') {
-        //     last_tokens.set_token(token<std::string>{token_type::id, make_id()});
-        //     return;
+        } else if (is_alpha(current_char) || current_char == '_') {
+            std::string id = make_id();
+            if (contains(KEYWORDS, id))
+                last_tokens.set_token(token<std::string>{token_type::keyword, id});
+            else
+                last_tokens.set_token(token<std::string>{token_type::id, id});
+
+            return;
         } else { // single character operators
             token_type tt;
             switch (current_char) {
@@ -123,6 +128,12 @@ void Tokenizer::next_token() {
                     break;
                 case ';':
                     tt = token_type::semi;
+                    break;
+                case ':':
+                    tt = token_type::colon;
+                    break;
+                case '=':
+                    tt = token_type::assign;
                     break;
                 default:
                     throw UnexpectedCharacter(current_char, position);

@@ -33,9 +33,9 @@ node_p Parser::factor() {
             require_next(token_type::floating);
 
             return n;
-        case token_type::decimal:
+        case token_type::dbl:
             n = node_factory(node_type::double_lit, StaticTokensContainer(tokenizer.last_tokens.token_d));
-            require_next(token_type::decimal);
+            require_next(token_type::dbl);
 
             return n;
         case token_type::plus:
@@ -52,8 +52,15 @@ node_p Parser::factor() {
             require_next(token_type::round_r);
             
             return n;
+        case token_type::id: {
+            token<std::string> tok = tokenizer.last_tokens.token_s;
+            require_next(token_type::id);
+            n = node_factory(node_type::variable, StaticTokensContainer(tok));
+
+            return n;
+        }
         default:
-            throw IncompleteFeature();
+            throw IncompleteFeature("Unknown token type " + std::to_string(t) + " in Parser::factor");
     }
 }
 
@@ -92,11 +99,51 @@ node_p Parser::expr() {
     return n;
 }
 
-node_p Parser::stmt() {
-    node_p n = expr();
-    if (n) require_next(token_type::semi);
+node_p Parser::variable() {
+    token<std::string> tok = tokenizer.last_tokens.token_s;
+    require_next(token_type::id);
+    return node_factory(node_type::variable, tok);
+}
 
-    return n;
+node_p Parser::type_spec() {
+    token<std::string> tok = tokenizer.last_tokens.token_s;
+    require_next(tok.type);
+    return node_factory(node_type::type_spec, StaticTokensContainer(tok));
+}
+
+node_p Parser::var_decl() {
+    node_p var_node = variable();
+    require_next(token_type::colon);
+    node_p type_node = type_spec();
+    node_p value_node = null_node();
+
+    if (get_token_type(tokenizer.last_tokens) == token_type::assign) {
+        require_next(token_type::assign);
+        value_node = expr();
+    }
+
+    require_next(token_type::semi);
+
+    return var_decl_factory(std::move(var_node), std::move(type_node), std::move(value_node));
+}
+
+node_p Parser::stmt() {
+    switch (get_token_type(tokenizer.last_tokens)) {
+        case token_type::keyword: {
+            std::string kw = tokenizer.last_tokens.token_s.value;
+            require_next(token_type::keyword);
+            if (kw == "var") {
+                return var_decl();
+            } else {
+                throw ShouldNotReach("Parser::stmt kw");
+            }
+        }
+        default:
+            node_p n = expr();
+            if (n) require_next(token_type::semi);
+
+            return n;
+    }
 }
 
 std::vector<node_p> Parser::stmt_list() {
@@ -117,5 +164,5 @@ node_p Parser::program() {
     std::vector<node_p> stmts = stmt_list();
 
     if (stmts.size() == 0) return null_node();
-    else return node_factory(node_type::program, StaticTokensContainer(), null_node(), null_node(), std::move(stmts));
+    else return stmt_list_factory(node_type::program, std::move(stmts));
 }

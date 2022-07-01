@@ -1,9 +1,27 @@
+_BUILTIN_TYPES = (
+    INT_TYPE,
+    FLOAT_TYPE,
+    DOUBLE_TYPE
+)
+
+# mathematic calculations
 factor      : INT_LIT
             | FLOAT_LIT
             | PLUS factor
             | MINUS factor
             | ROUND_L expr ROUND_R
+            | variable
 term        : factor ((MULTIPLY | DIVIDE) factor)*
 expr        : term ((PLUS | MINUS) term)*
+
+# variables
+variable    : ID
+type_spec   : [one of _BUILTIN_TYPES]
+var_decl    : VAR variable COLON type_spec (ASSIGN expr)? SEMI
+var_assign  : variable ASSIGN expr SEMI
+
+# statements
 stmt        : expr SEMI
-compound    : (stmt)*
+            | var_decl
+            | var_assign
+stmt_list   : (stmt)*

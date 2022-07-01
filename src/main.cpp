@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <streambuf>
 
 #include "interpreter.h"
 #include "exception.h"
@@ -7,7 +9,10 @@
 int main() {
     // run_tests();
 
-    Parser parser("1 + 1; 2 - 4; 0.3 * 0.4; 0.1d - 6.9;");
+    std::ifstream input_file("examples/1.simp");
+    std::string content = std::string(std::istreambuf_iterator<char>(input_file), std::istreambuf_iterator<char>());
+
+    Parser parser(content);
     Interpreter interpreter;
 
     try {

@@ -35,7 +35,7 @@ public:
 
 class IncompleteFeature : public Exception {
 public:
-    IncompleteFeature();
+    IncompleteFeature(std::string detail);
 };
 
 class ShouldNotReach : public Exception {
