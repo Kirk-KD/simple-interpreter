@@ -52,7 +52,7 @@ node_p var_decl_factory(
 }
 
 /**
- * A variant of node_factory for nodes with children.
+ * A variant of node_factory for nodes with children nodes only, with no other features.
  * 
  * @param children vector of children nodes
  * @return an unique pointer to the `node` constructed.

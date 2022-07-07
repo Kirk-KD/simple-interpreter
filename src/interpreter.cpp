@@ -44,7 +44,23 @@ VisitResult Interpreter::visit(const node_p& n) {
             }
         }
         case node_type::var_decl: {
-            symbols.set((*(*n).var_node).token_sc.token_s.value);
+            std::string key = (*(*n).var_node).token_sc.token_s.value;
+            if ((*n).value_node) {
+                VisitResult vr = visit((*n).value_node);
+                switch (vr.type) {
+                    case value_type::int_t:
+                        symbols.set(key, var_symbol_factory(key, symbol_value_factory(vr.value_i)));
+                        break;
+                    case value_type::float_t:
+                        symbols.set(key, var_symbol_factory(key, symbol_value_factory(vr.value_f)));
+                        break;
+                    case value_type::double_t:
+                        symbols.set(key, var_symbol_factory(key, symbol_value_factory(vr.value_d)));
+                        break;
+                    default:
+                        throw IncompleteFeature(fmt::format("var_decl of type {}", vr.type));
+                }
+            }
             return VisitResult();
         }
         case node_type::program:
