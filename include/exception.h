@@ -31,6 +31,16 @@ public:
     SyntaxError(int pos, std::string detail);
 };
 
+class NameError : public Exception {
+public:
+    NameError(std::string name);
+};
+
+class NullValueError : public Exception {
+public:
+    NullValueError(std::string name);
+};
+
 // Dev exceptions
 
 class IncompleteFeature : public Exception {

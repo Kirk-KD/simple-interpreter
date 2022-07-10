@@ -63,6 +63,25 @@ VisitResult Interpreter::visit(const node_p& n) {
             }
             return VisitResult();
         }
+        case node_type::variable: {
+            std::string key = (*n).token_sc.token_s.value;
+            if (symbols.has(key)) {
+                symbol s = symbols.get(key);
+                if (s.type == symbol_type::var) {
+                    switch (s.value.val_type) {
+                        case value_type::int_t: return VisitResult(s.value.value_i); break;
+                        case value_type::float_t: return VisitResult(s.value.value_f); break;
+                        case value_type::double_t: return VisitResult(s.value.value_d); break;
+                        case value_type::string_t: return VisitResult(s.value.value_s); break;
+                        default: throw NullValueError(key);
+                    }
+                } else {
+                    throw ShouldNotReach("symbol_type is not var in node_type::variable");
+                }
+            } else {
+                throw NameError(key);
+            }
+        }
         case node_type::program:
             // temporary way of handling a program
             for (node_p &child : (*n).children) {
